@@ -9,7 +9,7 @@ double EuclideanMetric::operator()(const std::vector<double> &t, const std::vect
     }
     double diff = 0;
     for (int i = 0; i < t.size(); i++) {
-        diff += t.at(i) - t1.at(i);
+        diff += std::pow(t.at(i) - t1.at(i), 2);
     }
     return std::pow(diff, 1. / (double)t.size());
 }
