@@ -5,7 +5,7 @@
 template <class T>
 class Metric {
 public:
-    virtual double operator()(const T&, const T&) = 0;
+    virtual double operator()(const T&, const T&);
 };
 
 /// The usual Euclidean metric.

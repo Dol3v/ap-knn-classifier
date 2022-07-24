@@ -2,6 +2,11 @@
 #include <cmath>
 #include "metric.h"
 
+template<class T>
+double Metric<T>::operator()(const T &, const T &) {
+    throw std::logic_error("unimplemented function");
+}
+
 double EuclideanMetric::operator()(const std::vector<double> &t, const std::vector<double> &t1) {
     if (t.size() != t1.size()) {
         // TODO: change to more appropriate error
