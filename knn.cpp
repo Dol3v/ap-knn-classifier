@@ -1,3 +1,4 @@
+#include "metric.h"
 #include "knn.h"
 #include <iostream>
 #include <algorithm>
@@ -16,30 +17,36 @@ KnnClassifier<Data, Class>::KnnClassifier(int k, const Metric<Data> &metric) : k
 
 template<class Data, class Class>
 void KnnClassifier<Data, Class>::load_data(const Data &t, const Class &s) {
-    if (t.size() != k) {
-        cout << "Invalid data point size" << endl;
-        return;
-    }
     auto *data = new DataEntry<Data, Class>(t, s);
     data_set.push_back(data);
 }
 
 template<class Data, class Class>
 Class KnnClassifier<Data, Class>::predict(const Data &t) {
-    auto *distances = new vector<double>;
-
+    // calculate distances
+    vector<pair<double, Class>> distances;
     for (auto entry: data_set) {
-        distances->push_back(metric(t, entry->data));
+        distances.push_back(pair<double, Class>(metric(t, entry->data), entry->data_class));
     }
     // order first k elements
-    std::nth_element(distances, distances + k, distances + distances->size());
-    // get class with most occurrences
-    map<Class, unsigned int> occurrences;
-    for (auto it = distances->begin(); it != distances->begin() + k; ++it) {
-        cout << *it << endl;
-        ++occurrences[*it];
+    std::nth_element(distances.begin(), distances.begin() + k, distances.end(),
+                     [](const pair<double, Class> &c1, const pair<double, Class> &c2) {
+                         return c1.first < c2.first;
+                     });
+
+    // count occurrences per class
+    map<Class, int> occurrences;
+    for (auto it = distances.begin(); it != distances.begin() + k; ++it) {
+        if (occurrences.find(it->second) == occurrences.end()) {
+            occurrences.insert(pair<Class, double>(it->second, 0));
+        }
+        ++occurrences[it->second];
     }
-    return std::max_element(occurrences.begin(), occurrences.end());
+    // return max element
+    return std::max_element(occurrences.begin(), occurrences.end(),
+                            [](const pair<Class, int> &p1, const pair<Class, int> &p2) {
+                                return p1.second < p2.second;
+                            })->first;
 }
 
 template<class Data, class Class>
@@ -49,3 +56,5 @@ KnnClassifier<Data, Class>::~KnnClassifier() {
     }
 }
 
+// used to prevent linker errors
+template class KnnClassifier<vector<double>, string>;
