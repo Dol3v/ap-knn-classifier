@@ -1,7 +1,7 @@
 #pragma once
 
 /// Classifier model
-template <typename T, typename S>
+template <class T, class S>
 class Model {
 public:
     virtual void load_data(const T&, const S&) = 0;
