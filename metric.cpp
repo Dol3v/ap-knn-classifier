@@ -3,7 +3,7 @@
 #include "metric.h"
 
 template<class T>
-double Metric<T>::operator()(const T &, const T &) const {
+double Metric<T>::operator()(const T &t1, const T &t2) const {
     throw std::logic_error("unimplemented function");
 }
 
@@ -16,7 +16,7 @@ double EuclideanMetric::operator()(const std::vector<double> &t, const std::vect
     for (int i = 0; i < t.size(); i++) {
         diff += std::pow(t.at(i) - t1.at(i), 2);
     }
-    return std::pow(diff, 1. / (double)t.size());
+    return std::pow(diff, 1. / (double) t.size());
 }
 
 double ManhattanDistance::operator()(const std::vector<double> &t, const std::vector<double> &t1) const {
@@ -40,3 +40,6 @@ double ChebyshevMetric::operator()(const std::vector<double> &t, const std::vect
     }
     return distance;
 }
+
+// used to prevent linker errors
+template class Metric<std::vector<double>>;
