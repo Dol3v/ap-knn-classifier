@@ -23,6 +23,9 @@ void KnnClassifier<Data, Class>::load_data(const Data &t, const Class &s) {
 
 template<class Data, class Class>
 Class KnnClassifier<Data, Class>::predict(const Data &t) {
+    if (this->data_set.size() < k) {
+        throw std::logic_error("insufficient data loaded to make a prediction");
+    }
     // calculate distances
     vector<pair<double, Class>> distances;
     for (auto entry: data_set) {
