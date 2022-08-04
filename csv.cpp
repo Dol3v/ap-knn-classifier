@@ -16,7 +16,7 @@ namespace csv {
         T value;
         sstream >> value;
         sstream >> junk;
-
+        std::cout << value << std::endl;
         std::tuple<T> value_tuple = std::make_tuple(value);
         return std::tuple_cat(value_tuple, read_line<Values...>(sstream));
     }
@@ -28,7 +28,7 @@ namespace csv {
         T value;
         sstream >> value;
         sstream >> junk;
-
+        std::cout << value << std::endl;
         return std::make_tuple(value);
     }
 
