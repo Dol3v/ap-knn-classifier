@@ -10,8 +10,7 @@ DataEntry<Data, Class>::DataEntry(Data data, Class class_) : data(data), data_cl
 }
 
 template<class Data, class Class>
-KnnClassifier<Data, Class>::KnnClassifier(int k, const Metric<Data> &metric) : k(k), metric(metric) {
-    this->data_set;
+KnnClassifier<Data, Class>::KnnClassifier(int k) : k(k) {
 }
 
 template<class Data, class Class>
@@ -21,7 +20,7 @@ void KnnClassifier<Data, Class>::load_data(const Data &t, const Class &s) {
 }
 
 template<class Data, class Class>
-Class KnnClassifier<Data, Class>::predict(const Data &t) {
+Class KnnClassifier<Data, Class>::predict(const Data &t, const Metric<Data>& metric) {
     if (this->data_set.size() < k) {
         throw std::logic_error("insufficient data loaded to make a prediction");
     }

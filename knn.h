@@ -21,13 +21,12 @@ class KnnClassifier : public Model<Data, Class> {
 private:
     int k;
     std::vector<DataEntry<Data, Class> *> data_set;
-    const Metric<Data> &metric;
 public:
-    KnnClassifier(int k, const Metric<Data> &metric);
+    explicit KnnClassifier(int k);
 
     virtual void load_data(const Data &t, const Class &s);
 
-    virtual Class predict(const Data &t);
+    virtual Class predict(const Data &t, const Metric<Data>& metric);
 
     ~KnnClassifier();
 };
