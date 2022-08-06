@@ -3,6 +3,7 @@
 
 namespace utils {
 
+    /// swaps two variables that implement the deref operator
     template<typename Iter>
     void swap(Iter a, Iter b) {
         auto temp = *a;
@@ -10,7 +11,8 @@ namespace utils {
         *b = temp;
     }
 
-    // to do
+    /// partitions the iterable to contain elements less than the pivot on the left,
+    /// and elements bigger than it on its right, using the given predicate.
     template<typename RAIter, typename Pred>
     RAIter partition(RAIter begin, RAIter end, RAIter pivot, Pred comp) {
         typedef typename std::iterator_traits<RAIter>::value_type value_type;
@@ -32,6 +34,8 @@ namespace utils {
         return store;
     }
 
+    /// runs the quick select algorithm without type-checking. Accepts the random number generator in addition
+    /// to the other arguments.
     template<typename RAIter, typename Pred>
     RAIter _quick_select(RAIter begin, RAIter end, uint32_t k, Pred comp, std::mt19937 rng) {
         // creating uniform distribution
@@ -66,6 +70,10 @@ namespace utils {
         return _quick_select(begin, end, k, comp, rng);
     }
 
+    /// Returns the max element of an iterable.
+    ///
+    /// Iter - iterator type
+    /// Pred - comparison predicate
     template<typename Iter, typename Pred>
     typename std::iterator_traits<Iter>::value_type
     max_element(Iter begin, Iter end, Pred comp) {
