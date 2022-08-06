@@ -37,7 +37,7 @@ namespace utils {
         // creating uniform distribution
         std::uniform_int_distribution<uint32_t> dist(0, end - begin - 1);
         // base case
-        if (begin == end - 1) {
+        if (begin == end) {
             return begin;
         }
         uint32_t pivot_index = dist(rng);
