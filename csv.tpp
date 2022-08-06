@@ -18,13 +18,14 @@ namespace csv {
     read_line(std::stringstream &sstream) {
         T value = read_value<T>(sstream);
         std::tuple<T> value_tuple = std::make_tuple(value);
+//        std::cout << value << std::endl;
         return std::tuple_cat(value_tuple, read_line<Values...>(sstream));
     }
 
     template<typename T>
     std::tuple<T> read_line(std::stringstream &sstream) {
         T value = read_value<T>(sstream);
-        std::cout << value << std::endl;
+//        std::cout << value << std::endl;
         return std::make_tuple(value);
     }
 
