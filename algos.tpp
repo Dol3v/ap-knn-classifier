@@ -45,7 +45,6 @@ namespace utils {
         std::uniform_int_distribution<uint32_t> dist(0, end - begin - 1);
         // base case
         if (begin == end) {
-            std::cout << "ending recursion: begin and end are equal" << std::endl;
             return begin;
         }
         uint32_t pivot_index = dist(rng);
@@ -53,22 +52,15 @@ namespace utils {
         std::cout << "end index: " << end - begin << std::endl;
         print_iter(begin, end);
         std::cout << std::endl;
-        std::cout << "pivot value: " << *pivot << std::endl;
-        std::cout << "pivot index: " << pivot - begin << std::endl;
-        std::cout << "chosen pivot index: " << pivot_index << std::endl;
-        std::cout << "k: " << k << std::endl;
         if (begin == end - 1) {
             // recursion should end
             return pivot;
         }
         if (pivot - begin == k) {
-            std::cout << "ending recursion: found k" << std::endl;
             return pivot;
         } else if (pivot - begin > k) {
-            std::cout << "in lower half" << std::endl << "---------" << std::endl;
             return _quick_select(begin, pivot, k, comp, rng);
         }
-        std::cout << "in upper half" << std::endl << "---------" << std::endl;
         return _quick_select(pivot + 1, end, k - (pivot - begin + 1), comp, rng);
     }
 
