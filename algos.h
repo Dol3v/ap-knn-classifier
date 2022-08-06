@@ -13,7 +13,7 @@ namespace utils {
     /// begin, end - begin and end of the iterable
     /// comp - comparison predicate for the iterable's elements
     template <typename RAIter, typename Pred>
-    void quick_select(RAIter begin, RAIter end, Pred comp);
+    void quick_select(RAIter begin, RAIter end, uint32_t k, Pred comp);
 
     /// Returns the max element of an iterator.
     template <typename Iter, typename Pred>

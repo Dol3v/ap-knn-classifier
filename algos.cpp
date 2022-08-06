@@ -1,9 +1,10 @@
 #include "algos.h"
 #include <vector>
+#include <random>
 
 namespace utils {
 
-    template <typename Iter>
+    template<typename Iter>
     void swap(Iter a, Iter b) {
         auto temp = *a;
         *a = *b;
@@ -11,7 +12,7 @@ namespace utils {
     }
 
     // to do
-    template <typename RAIter, typename Pred>
+    template<typename RAIter, typename Pred>
     RAIter partition(RAIter begin, RAIter end, RAIter pivot, Pred comp) {
         typedef typename std::iterator_traits<RAIter>::value_type value_type;
         auto pivot_value = *pivot;
@@ -32,16 +33,37 @@ namespace utils {
         return store;
     }
 
-    template <typename RAIter, typename Pred>
-    void quick_select(RAIter begin, RAIter end, Pred comp) {
+    template<typename RAIter, typename Pred>
+    RAIter _quick_select(RAIter begin, RAIter end, uint32_t k, Pred comp, std::mt19937 rng) {
+        // creating uniform distribution
+        std::uniform_int_distribution<uint32_t> dist(0, end - begin - 1);
+        // base case
+        if (begin == end - 1) {
+            return begin;
+        }
+        uint32_t pivot_index = dist(rng);
+        RAIter pivot = partition(begin, end, begin + pivot_index, comp);
+        if (pivot - begin == k) {
+            return pivot;
+        } else if (pivot - begin > k) {
+            return _quick_select(begin, pivot, k, comp, rng);
+        }
+        return _quick_select(pivot + 1, end, k, comp, rng);
+    }
+
+    template<typename RAIter, typename Pred>
+    RAIter quick_select(RAIter begin, RAIter end, const uint32_t k, Pred comp) {
         // asserting that we have a random iterator
         static_assert(std::is_base_of<std::random_access_iterator_tag,
                               typename std::iterator_traits<RAIter>::iterator_category>::value,
                       "Iterator must be a random-access iterator");
-
+        // initializing rng
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        return _quick_select(begin, end, k, comp, rng);
     }
 
-    template <typename Iter, typename Pred>
+    template<typename Iter, typename Pred>
     typename std::iterator_traits<Iter>::value_type
     max_element(Iter begin, Iter end, Pred comp) {
         if (begin == end) throw std::logic_error("Invalid parameter: end and begin are equal");
@@ -53,4 +75,3 @@ namespace utils {
     }
 };
 
-template std::vector<double>::iterator utils::partition(std::vector<double>::iterator begin, std::vector<double>::iterator end, std::vector<double>::iterator pivot, bool (*comp)(double, double));
