@@ -76,5 +76,16 @@ namespace utils {
         }
         return *max;
     }
+
+    /// Converts a tuple of type T and into a vector of the same type containing the first 4 values of the tuple
+    template <typename T, typename... Rest>
+    std::vector<T> tup2vec4(std::tuple<T, T, T, T, Rest...> values) {
+        std::vector<T> data;
+        data.push_back(std::get<0>(values));
+        data.push_back(std::get<1>(values));
+        data.push_back(std::get<2>(values));
+        data.push_back(std::get<3>(values));
+        return data;
+    }
 };
 

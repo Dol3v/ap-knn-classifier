@@ -19,6 +19,9 @@ namespace utils {
     template <typename Iter, typename Pred>
     typename std::iterator_traits<Iter>::value_type
     max_element(Iter begin, Iter end, Pred comp);
+
+    template <typename T, typename... Rest>
+    std::vector<T> tup2vec4(std::tuple<T, T, T, T, Rest...> values);
 }
 
 #include "utils.tpp"
