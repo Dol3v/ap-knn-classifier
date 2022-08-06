@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "metric.h"
+#include "metric.hpp"
 
 /// data entry
 template<class Data, class Class>

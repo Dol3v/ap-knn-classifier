@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include <cmath>
-#include "metric.h"
+#include "metric.hpp"
 
 template<class T>
 double Metric<T>::operator()(const T &t1, const T &t2) const {
@@ -18,7 +18,7 @@ double EuclideanMetric::operator()(const std::vector<double> &t, const std::vect
     return std::pow(diff, 1. / (double) t.size());
 }
 
-double ManhattanDistance::operator()(const std::vector<double> &t, const std::vector<double> &t1) const {
+double ManhattanMetric::operator()(const std::vector<double> &t, const std::vector<double> &t1) const {
     if (t.size() != t1.size()) {
         throw std::runtime_error("operands' sizes don't match");
     }

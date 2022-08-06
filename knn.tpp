@@ -1,7 +1,7 @@
-#include "metric.h"
-#include "algos.h"
+#include "metric.hpp"
+#include "utils.hpp"
 #include <tuple>
-#include "metric.h"
+#include "metric.hpp"
 #include <map>
 
 template<class Data, class Class>

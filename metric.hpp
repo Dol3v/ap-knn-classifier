@@ -15,7 +15,7 @@ public:
 };
 
 /// The Manhattan distance function.
-class ManhattanDistance : public Metric<std::vector<double>> {
+class ManhattanMetric : public Metric<std::vector<double>> {
 public:
     double operator()(const std::vector<double> &t, const std::vector<double> &t1) const override;
 };
