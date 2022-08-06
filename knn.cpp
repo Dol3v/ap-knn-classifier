@@ -58,6 +58,3 @@ KnnClassifier<Data, Class>::~KnnClassifier() {
         delete entry;
     }
 }
-
-// used to prevent linker errors
-template class KnnClassifier<vector<double>, string>;
