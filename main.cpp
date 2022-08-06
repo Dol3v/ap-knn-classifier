@@ -1,6 +1,5 @@
 #include <iostream>
 #include "knn.cpp"
-#include "algos.cpp"
 
 bool compare(double a, double b) {
     return a < b;

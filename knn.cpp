@@ -1,6 +1,6 @@
 #include "metric.h"
 #include "knn.h"
-#include <iostream>
+#include "algos.cpp"
 #include <algorithm>
 #include <map>
 
@@ -46,7 +46,7 @@ Class KnnClassifier<Data, Class>::predict(const Data &t) {
         ++occurrences[it->second];
     }
     // return max element
-    return std::max_element(occurrences.begin(), occurrences.end(),
+    return utils::max_element(occurrences.begin(), occurrences.end(),
                             [](const pair<Class, int> &p1, const pair<Class, int> &p2) {
                                 return p1.second < p2.second;
                             })->first;
