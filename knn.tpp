@@ -1,6 +1,5 @@
 #include "metric.h"
 #include "algos.h"
-#include <algorithm>
 #include <tuple>
 #include "model.h"
 #include "metric.h"
@@ -32,10 +31,11 @@ Class KnnClassifier<Data, Class>::predict(const Data &t) {
         distances.push_back(std::pair<double, Class>(metric(t, entry->data), entry->data_class));
     }
     // order first k elements
-    std::nth_element(distances.begin(), distances.begin() + k, distances.end(),
-                     [](const std::pair<double, Class> &c1, const std::pair<double, Class> &c2) {
-                         return c1.first < c2.first;
-                     });
+    using pair = std::pair<double, Class>;
+    auto comp = [](const pair &c1, const pair &c2) {
+        return c1.first < c2.first;
+    };
+    utils::quick_select(distances.begin(), distances.end(), k + 1, comp);
 
     // count occurrences per class
     std::map<Class, int> occurrences;
@@ -47,9 +47,9 @@ Class KnnClassifier<Data, Class>::predict(const Data &t) {
     }
     // return max element
     return utils::max_element(occurrences.begin(), occurrences.end(),
-                            [](const std::pair<Class, int> &p1, const std::pair<Class, int> &p2) {
-                                return p1.second < p2.second;
-                            }).first;
+                              [](const std::pair<Class, int> &p1, const std::pair<Class, int> &p2) {
+                                  return p1.second < p2.second;
+                              }).first;
 }
 
 template<class Data, class Class>
