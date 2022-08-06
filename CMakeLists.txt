@@ -3,4 +3,4 @@ project(ap1_knn_classifier)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(ap1_knn_classifier model.h metric.h knn.h metric.cpp knn.cpp main.cpp algos.cpp algos.h)
+add_executable(ap1_knn_classifier main.cpp model.h knn.h metric.h metric.cpp knn.cpp algos.h algos.cpp csv.h csv.cpp)

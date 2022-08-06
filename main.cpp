@@ -1,34 +1,17 @@
-#include <iostream>
-#include "knn.cpp"
+#include "csv.h"
 
-bool compare(double a, double b) {
-    return a < b;
-}
 
 int main() {
-//    auto vec1 = new std::vector<double>();
-//    vec1->push_back(0);
-//    vec1->push_back(1);
-//
-    auto vec2 = new std::vector<double>();
-    vec2->push_back(1);
-    vec2->push_back(0);
-    vec2->push_back(3);
-    vec2->push_back(-1);
-//
-//    const Metric<vector<double>>* metric = new EuclideanMetric();
-//    auto* classifier = new KnnClassifier<vector<double>, std::string>(3, *metric);
-//    classifier->load_data(*vec1, string("Iris"));
-//    classifier->load_data(*vec2, string("Rose"));
-//
-//    auto vec3 = new vector<double>();
-//    vec3->push_back(0);
-//    vec3->push_back(0.75);
-//    cout << classifier->predict(*vec3) << endl;
-//    std::iterator_traits<vector<double>::iterator>::value_type val = 0.5;
-//    double a = 3;
-//    cout << (a == val) << endl
-//  ;
-    std::cout << utils::max_element<std::vector<double>::iterator, bool (*)(double, double)>(vec2->begin(), vec2->end(), compare) << std::endl;
-    return 0;
+//    std::string line = "123,29.5,19";
+    std::string s = "";
+    std::ostringstream os(s);
+    std::string str = "Iris";
+    csv::write_line<int, std::string, double>(os, 5, str, 8.5);
+//    std::istringstream iss(line);
+//    csv::read_line<int, double, int>(iss);
+//    std::cout << os.str() << std::endl;
+
+    std::stringstream is(os.str());
+    auto tup = csv::read_line<int, std::string, double>(is);
+    std::cout << std::get<0>(tup) << " " << std::get<1>(tup) << " " << std::get<2>(tup) << std::endl;
 }
