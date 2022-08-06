@@ -11,13 +11,13 @@ public:
 /// The usual Euclidean metric.
 class EuclideanMetric : public Metric<std::vector<double>> {
 public:
-    double operator()(const std::vector<double> &t, const std::vector<double> &t1) const override;
+    virtual double operator()(const std::vector<double> &t, const std::vector<double> &t1) const;
 };
 
 /// The Manhattan distance function.
 class ManhattanMetric : public Metric<std::vector<double>> {
 public:
-    double operator()(const std::vector<double> &t, const std::vector<double> &t1) const override;
+    virtual double operator()(const std::vector<double> &t, const std::vector<double> &t1) const;
 };
 
 /// The Chebyshev distance function.
