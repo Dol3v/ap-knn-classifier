@@ -12,12 +12,16 @@ namespace csv {
     typename std::enable_if<sizeof...(Values) != 0, std::tuple<T, Values...>>::type
     read_line(std::stringstream &sstream);
 
+    /// Reads a collection of values from a csv file; assumes they're all
+    /// primitives (i.e integers, chars, doubles) or strings.
     template<typename T>
     std::tuple<T> read_line(std::stringstream &sstream);
 
+    /// Reads a value from a comma-seperated line.
     template<typename T>
     T read_value(std::stringstream &);
 
+    /// Reads a string from a comma-separated line.
     template<>
     std::string read_value(std::stringstream &);
 

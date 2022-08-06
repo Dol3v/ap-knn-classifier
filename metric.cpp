@@ -1,20 +1,24 @@
 #include <stdexcept>
 #include <cmath>
-#include "metric.h"
+#include "metric.hpp"
 
-double EuclideanMetric::operator()(const std::vector<double> &t, const std::vector<double> &t1) {
+template<class T>
+double Metric<T>::operator()(const T &t1, const T &t2) const {
+    throw std::logic_error("unimplemented function");
+}
+
+double EuclideanMetric::operator()(const std::vector<double> &t, const std::vector<double> &t1) const {
     if (t.size() != t1.size()) {
-        // TODO: change to more appropriate error
         throw std::runtime_error("operands' sizes don't match");
     }
     double diff = 0;
     for (int i = 0; i < t.size(); i++) {
         diff += std::pow(t.at(i) - t1.at(i), 2);
     }
-    return std::pow(diff, 1. / (double)t.size());
+    return std::pow(diff, 1. / (double) t.size());
 }
 
-double ManhattanDistance::operator()(const std::vector<double> &t, const std::vector<double> &t1) {
+double ManhattanMetric::operator()(const std::vector<double> &t, const std::vector<double> &t1) const {
     if (t.size() != t1.size()) {
         throw std::runtime_error("operands' sizes don't match");
     }
@@ -25,7 +29,7 @@ double ManhattanDistance::operator()(const std::vector<double> &t, const std::ve
     return distance;
 }
 
-double ChebyshevMetric::operator()(const std::vector<double> &t, const std::vector<double> &t1) {
+double ChebyshevMetric::operator()(const std::vector<double> &t, const std::vector<double> &t1) const {
     if (t.size() != t1.size()) {
         throw std::runtime_error("operands' sizes don't match");
     }
@@ -35,3 +39,6 @@ double ChebyshevMetric::operator()(const std::vector<double> &t, const std::vect
     }
     return distance;
 }
+
+// used to prevent linker errors
+template class Metric<std::vector<double>>;
