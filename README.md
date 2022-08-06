@@ -16,3 +16,7 @@ Otherwise, you can build it using CMake or using the command (after cloning the 
 ```text
 g++ -o a.out -std=c11 main.cpp knn.hpp metric.hpp metric.cpp knn.tpp utils.hpp utils.tpp csv.hpp csv.cpp 
 ```
+
+## OS Compatibility
+Note that the path names used are compatible with Linux specifically. To run on Windows, re-build the program
+using the path name `..\\x` instead of `x`.

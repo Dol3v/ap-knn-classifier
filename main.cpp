@@ -50,23 +50,23 @@ int main(int argc, char *argv[]) {
     KnnClassifier<std::vector<double>, std::string> classifier(k);
 
     std::fstream fio;
-    fio.open(R"(..\classified.csv)");
+    fio.open("classified.csv");
     if (!fio) {
         std::cout << "Failed to open the training data" << std::endl;
         return 1;
     }
     train_model(classifier, fio);
     fio.close();
-    fio.open(R"(..\Unclassified.csv)");
+    fio.open("Unclassified.csv");
     if (!fio) {
         std::cout << "Failed to open the unclassified data" << std::endl;
         return 1;
     }
 
     std::fstream euclidean, chebyshev, manhattan;
-    euclidean.open("..\\euclidean_output.csv", std::fstream::out | std::fstream::trunc);
-    chebyshev.open("..\\chebyshev_output.csv", std::fstream::out | std::fstream::trunc);
-    manhattan.open("..\\manhattan_output.csv", std::fstream::out | std::fstream::trunc);
+    euclidean.open("euclidean_output.csv", std::fstream::out | std::fstream::trunc);
+    chebyshev.open("chebyshev_output.csv", std::fstream::out | std::fstream::trunc);
+    manhattan.open("manhattan_output.csv", std::fstream::out | std::fstream::trunc);
     if (!euclidean || !chebyshev || !manhattan) {
         std::cout << "Failed to create output files" << std::endl;
         return 1;
