@@ -1,10 +1,10 @@
 #include "metric.h"
-#include "knn.h"
 #include "algos.cpp"
 #include <algorithm>
+#include <tuple>
+#include "model.h"
+#include "metric.h"
 #include <map>
-
-using namespace std;
 
 template<class Data, class Class>
 DataEntry<Data, Class>::DataEntry(Data data, Class class_) : data(data), data_class(class_) {
@@ -27,29 +27,29 @@ Class KnnClassifier<Data, Class>::predict(const Data &t) {
         throw std::logic_error("insufficient data loaded to make a prediction");
     }
     // calculate distances
-    vector<pair<double, Class>> distances;
+    std::vector<std::pair<double, Class>> distances;
     for (auto entry: data_set) {
-        distances.push_back(pair<double, Class>(metric(t, entry->data), entry->data_class));
+        distances.push_back(std::pair<double, Class>(metric(t, entry->data), entry->data_class));
     }
     // order first k elements
     std::nth_element(distances.begin(), distances.begin() + k, distances.end(),
-                     [](const pair<double, Class> &c1, const pair<double, Class> &c2) {
+                     [](const std::pair<double, Class> &c1, const std::pair<double, Class> &c2) {
                          return c1.first < c2.first;
                      });
 
     // count occurrences per class
-    map<Class, int> occurrences;
+    std::map<Class, int> occurrences;
     for (auto it = distances.begin(); it != distances.begin() + k; ++it) {
         if (occurrences.find(it->second) == occurrences.end()) {
-            occurrences.insert(pair<Class, double>(it->second, 0));
+            occurrences.insert(std::pair<Class, double>(it->second, 0));
         }
         ++occurrences[it->second];
     }
     // return max element
     return utils::max_element(occurrences.begin(), occurrences.end(),
-                            [](const pair<Class, int> &p1, const pair<Class, int> &p2) {
+                            [](const std::pair<Class, int> &p1, const std::pair<Class, int> &p2) {
                                 return p1.second < p2.second;
-                            })->first;
+                            }).first;
 }
 
 template<class Data, class Class>
