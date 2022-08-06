@@ -1,5 +1,5 @@
 #include "metric.h"
-#include "algos.cpp"
+#include "algos.h"
 #include <algorithm>
 #include <tuple>
 #include "model.h"
