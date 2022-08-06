@@ -1,6 +1,6 @@
 #include <iostream>
-#include "knn.h"
-#include "algos.h"
+#include "knn.cpp"
+#include "algos.cpp"
 
 bool compare(double a, double b) {
     return a < b;
@@ -14,6 +14,8 @@ int main() {
     auto vec2 = new std::vector<double>();
     vec2->push_back(1);
     vec2->push_back(0);
+    vec2->push_back(3);
+    vec2->push_back(-1);
 //
 //    const Metric<vector<double>>* metric = new EuclideanMetric();
 //    auto* classifier = new KnnClassifier<vector<double>, std::string>(3, *metric);

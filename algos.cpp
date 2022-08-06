@@ -6,9 +6,8 @@ typename std::iterator_traits<Iter>::value_type
 utils::max_element(Iter begin, Iter end, Pred pred) {
     if (begin == end) throw std::logic_error("Invalid parameter: end and begin are equal");
     auto max = *begin;
-    begin++;
     while (++begin != end) {
-        if (pred(*begin, max)) max = *begin;
+        if (pred(max, *begin)) max = *begin;
     }
     return max;
 }
