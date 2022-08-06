@@ -3,13 +3,6 @@
 
 namespace utils {
 
-    template <typename Iter>
-    void print_iter(Iter begin, Iter end) {
-        for (auto it = begin; it != end; it++) {
-            std::cout << *it << " ";
-        }
-    }
-
     template<typename Iter>
     void swap(Iter a, Iter b) {
         auto temp = *a;
@@ -49,9 +42,6 @@ namespace utils {
         }
         uint32_t pivot_index = dist(rng);
         RAIter pivot = partition(begin, end, begin + pivot_index, comp);
-        std::cout << "end index: " << end - begin << std::endl;
-        print_iter(begin, end);
-        std::cout << std::endl;
         if (begin == end - 1) {
             // recursion should end
             return pivot;
